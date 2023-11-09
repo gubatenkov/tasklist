@@ -4,12 +4,6 @@ export type Prettify<T> = {
 } & {}
 export type ColId = Brand<string, 'ColId'>
 export type TaskId = Brand<string, 'TaskId'>
-export type TasksMap = Record<TaskId, TTask>
-export type TaskDataWithoutId = Prettify<Omit<TTask, 'id'>>
-export type TaskStatus = {
-  indexInCol: number
-  colId: ColId
-}
 export type TaskPriority =
   | {
       label: 'Middle'
@@ -35,25 +29,6 @@ export type TColumn = {
 export type TTask = {
   priority: TaskPriority
   description: string
-  // status: TaskStatus
   title: string
   id: TaskId
-}
-
-export const priorities: Record<
-  Lowercase<TaskPriority['value']>,
-  TaskPriority
-> = {
-  '1': {
-    label: 'Middle',
-    value: '1',
-  },
-  '2': {
-    label: 'High',
-    value: '2',
-  },
-  '0': {
-    label: 'Low',
-    value: '0',
-  },
 }

@@ -1,12 +1,13 @@
+import type { TaskPriority } from '@/lib/types.ts'
+
 import FiltersPopover from '@/components/Filters/FiltersPopover'
-import { TaskPriority, priorities } from '@/lib/types.ts'
+import { useAppStore } from '@/stores/appStore.ts'
 import { Button } from '@/components/ui/button'
+import { priorities, cn } from '@/lib/utils'
 import { PlusIcon } from 'lucide-react'
-import { useStore } from '@/store'
-import { cn } from '@/lib/utils'
 
 export default function Filters() {
-  const { setFilterByPriority, filterByPriority } = useStore()
+  const { setFilterByPriority, filterByPriority } = useAppStore()
   const filterValue =
     filterByPriority in priorities
       ? priorities[filterByPriority as TaskPriority['value']].label

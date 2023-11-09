@@ -1,9 +1,9 @@
 import type { ChangeEvent } from 'react'
 
-import { useStore } from '@/store'
+import { useAppStore } from '@/stores/appStore.ts'
 
 export default function InfoBar() {
-  const { setBoardTitle, boardTitle } = useStore()
+  const { setBoardTitle, boardTitle } = useAppStore()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBoardTitle(e.target.value)

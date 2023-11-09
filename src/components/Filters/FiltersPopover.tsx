@@ -1,3 +1,4 @@
+import type { TaskPriority } from '@/lib/types.ts'
 import type { ReactNode } from 'react'
 
 import {
@@ -6,10 +7,9 @@ import {
   Popover,
 } from '@/components/ui/popover'
 import GenericSelect from '@/components/EditTaskPopover/GenericSelect'
-import { TaskPriority, priorities } from '@/lib/types.ts'
+import { useAppStore } from '@/stores/appStore.ts'
 import { Label } from '@/components/ui/label'
-import { useStore } from '@/store'
-import { cn } from '@/lib/utils'
+import { priorities, cn } from '@/lib/utils'
 
 type Props = { children: ReactNode; className?: string; isHidden: boolean }
 
@@ -18,7 +18,7 @@ export default function FiltersPopover({
   isHidden,
   children,
 }: Props) {
-  const { setFilterByPriority, filterByPriority } = useStore()
+  const { setFilterByPriority, filterByPriority } = useAppStore()
 
   return (
     !isHidden && (

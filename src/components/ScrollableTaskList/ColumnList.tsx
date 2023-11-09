@@ -2,14 +2,14 @@ import type { TaskId, TTask } from '@/lib/types.ts'
 
 import { getAllColumns, getAllTasks } from '@/lib/functions.ts'
 import { useSuspenseQuery } from '@tanstack/react-query'
+import { useAppStore } from '@/stores/appStore.ts'
 import { useCallback } from 'react'
-import { useStore } from '@/store'
 
 import TaskColumn from './TaskColumn.tsx'
 import TaskList from './TaskList.tsx'
 
 export default function ColumnList() {
-  const { filterByPriority, searchQuery } = useStore()
+  const { filterByPriority, searchQuery } = useAppStore()
   const { data } = useSuspenseQuery({
     queryFn: getAllColumns,
     queryKey: ['columns'],

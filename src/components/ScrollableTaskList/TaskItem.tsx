@@ -1,14 +1,14 @@
 import type { TTask } from '@/lib/types.ts'
 
+import { useEditStore } from '@/stores/editStore.ts'
 import { Draggable } from 'react-beautiful-dnd'
-import { useStore } from '@/store'
 
 export default function TaskItem({
   title = 'Untitled',
   index,
   id,
 }: TTask & { index: number }) {
-  const { enableEditMode, setEditTask } = useStore()
+  const { enableEditMode, setEditTask } = useEditStore()
 
   const handleClick = () => {
     setEditTask(id)

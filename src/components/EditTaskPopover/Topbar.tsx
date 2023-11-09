@@ -1,9 +1,9 @@
 import { deleteCachedTask, deleteRemoteTask } from '@/lib/mutations.ts'
 import { ChevronsRight, Trash2 } from 'lucide-react'
+import { useEditStore } from '@/stores/editStore.ts'
 import { useMutation } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { queryClient } from '@/main.tsx'
-import { useStore } from '@/store'
 import { cn } from '@/lib/utils'
 
 export default function Topbar() {
@@ -13,7 +13,7 @@ export default function Topbar() {
     clearEditTask,
     isInEditMode,
     editTask,
-  } = useStore()
+  } = useEditStore()
   const { mutate } = useMutation({
     // If the mutation fails, use the context returned from onMutate to roll back
     onError: (_, __, context) => {

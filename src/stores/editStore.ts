@@ -1,26 +1,19 @@
-import type { TaskPriority, TaskId, TTask } from '@/lib/types.ts'
-
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { TaskId, TTask } from '@/lib/types.ts'
 import { queryClient } from '@/main.tsx'
 import { create } from 'zustand'
 
 type Store = {
-  setFilterByPriority: (value: TaskPriority['value'] | '') => void
-  filterByPriority: TaskPriority['value'] | ''
   updateEditTask: (updatedTask: TTask) => void
-  setBoardTitle: (newTitle: string) => void
-  setSearchQuery: (query: string) => void
   setEditTask: (taskId: TaskId) => void
   disableEditMode: () => void
   enableEditMode: () => void
   clearEditTask: () => void
   editTask: TTask | null
   isInEditMode: boolean
-  searchQuery: string
-  boardTitle: string
 }
 
-export const useStore = create<Store>()(
+export const useEditStore = create<Store>()(
   persist(
     (set): Store => ({
       setEditTask: (editTaskId) => {
@@ -30,28 +23,19 @@ export const useStore = create<Store>()(
         if (!editTask) return
         set({ editTask: editTask ? editTask : null })
       },
-      setFilterByPriority: (priorityValue) =>
-        set({
-          filterByPriority: priorityValue,
-        }),
       updateEditTask: (updatedTask) =>
         set({
           editTask: updatedTask,
         }),
-      setBoardTitle: (newTitle) => set({ boardTitle: newTitle }),
-      setSearchQuery: (searchQuery) => set({ searchQuery }),
       disableEditMode: () => set({ isInEditMode: false }),
       enableEditMode: () => set({ isInEditMode: true }),
       clearEditTask: () => set({ editTask: null }),
-      filterByPriority: '',
       isInEditMode: false,
-      boardTitle: 'Tasks',
-      searchQuery: '',
       editTask: null,
     }),
     {
-      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-      name: 'defaultStorage', // name of the item in the storage (must be unique)
+      storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
+      name: 'editStorage',
     }
   )
 )

@@ -2,14 +2,14 @@ import type { ChangeEvent } from 'react'
 
 import { createRemoteTask } from '@/lib/mutations.ts'
 import { useMutation } from '@tanstack/react-query'
+import { useAppStore } from '@/stores/appStore.ts'
 import { Button } from '@/components/ui/button'
 import { queryClient } from '@/main.tsx'
-import { useStore } from '@/store'
 
 import Search from './Search'
 
 export default function TabList() {
-  const { setSearchQuery, searchQuery } = useStore()
+  const { setSearchQuery, searchQuery } = useAppStore()
   const { mutate } = useMutation({
     // Always refetch after error or success:
     onSettled: async () => {

@@ -6,28 +6,17 @@ import IconTextCol from '@/components/EditTaskPopover/IconTextCol'
 import Topbar from '@/components/EditTaskPopover/Topbar'
 import { updateRemoteTask } from '@/lib/mutations.ts'
 import { useDebouncedCallback } from '@/lib/hooks.ts'
+import { useEditStore } from '@/stores/editStore.ts'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowDownUpIcon } from 'lucide-react'
-import { priorities } from '@/lib/types.ts'
+import { priorities } from '@/lib/utils.ts'
 import { queryClient } from '@/main.tsx'
-import { useStore } from '@/store'
 import { cn } from '@/lib/utils'
 
 import Input from './Input'
 
-// const blankTask: TTask = {
-//   priority: {
-//     label: 'Low',
-//     value: '0',
-//   },
-//   id: '_blank' as TaskId,
-//   title: 'Untitled',
-//   description: '',
-//   createdAt: '',
-// }
-
 export default function EditTaskPopover() {
-  const { updateEditTask, isInEditMode, editTask } = useStore()
+  const { updateEditTask, isInEditMode, editTask } = useEditStore()
   const { mutate } = useMutation<void, Error, TTask>({
     onSettled: async () => {
       return await queryClient.invalidateQueries({ queryKey: ['tasks'] })
