@@ -53,7 +53,7 @@ export default function ColumnList() {
 
   return data.map((col) => (
     <TaskColumn
-      itemsNumber={getColTasks(col.tasks).length}
+      itemsNumber={applyFilters(getColTasks(col.tasks)).length}
       key={col.id}
       {...col}
     >
